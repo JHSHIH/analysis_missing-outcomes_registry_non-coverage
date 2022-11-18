@@ -31,14 +31,14 @@ File “sim_Biostatistics_DUMY1” contains beta estimates of interest: beta.ful
 
 File “sim_Biostatistics_DUMY1” contains standard errors of beta estimates without accounting for variabilities in the mover-stayer model, imputed coverage status calculated from the posterior model and semi-parametric working imputation model.
 
-File “sim_Biostatistics_DUMY3” contains estimates of the parameters in the mover-stayer model, 
+File “sim_Biostatistics_DUMY3” contains estimates of the parameters in the mover-stayer model, where
 parameters.1.1 = π0 
 parameters.1.2 = π1 
 diag.parameters.1.2 = P1
 diag.parameters.2.1 = P00
 diag.parameters.2.2 = P11
 mean.p.agree = τ1
-mean.p.agree3 = τ2
+mean.p.agree3 = τ2. 
 
 
 
