@@ -1,4 +1,4 @@
-# analysis_missing-outcomes_registry_non-covveragea
+# Imputation_missing-outcomes_registry_non-coverage
 An imputation approach for time-to-event analysis subject to missing outcomes due to non-coverage in disease registries
 Authors:  Joanna H. Shih, Paul S. Albert, Jason Fine, Danping Liu
 
