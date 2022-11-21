@@ -5,10 +5,10 @@ Authors:  Joanna H. Shih, Paul S. Albert, Jason Fine, Danping Liu
 Source code for running simulations:
 
 A set of R source code listed below was used to run simulations on Linux operating system.
-Decode_state_05172021.R
-USRT_VPR_funcs_06152021.R
-source.R
-source.so
+Decode_state_05172021.R,
+USRT_VPR_funcs_06152021.R,
+source.R,
+source.so,
 run.R
 
 The source code “source.so” may need be recompiled by using the command “R CMD SHLIB source.c”.
@@ -27,18 +27,18 @@ Simulation results for one replicate:
  combineSimFiles2 is a function listed in run.R.
 
 2.	Four output files are created after running c ombineSimFiles2:
-File “sim_Biostatistics_DUMY1” contains beta estimates of interest: beta.full, beta.hat, beta.hat.hybrid, beta.usrt, beta.hat.V1, beta.hat.impute1, beta.hat.impute2 correspond to estimates obtained by approaches GS, IR, Hybrid, SR, Step 1, NP and Proposed.
+File “sim_Biostatistics_DUMY1” contains beta estimates in Cox regression: beta.full, beta.hat, beta.hat.hybrid, beta.usrt, beta.hat.V1, beta.hat.impute1, beta.hat.impute2 correspond to estimates obtained by approaches GS, IR, Hybrid, SR, Step 1, NP and Proposed.
 
-File “sim_Biostatistics_DUMY1” contains standard errors of beta estimates without accounting for variabilities in the mover-stayer model, imputed coverage status calculated from the posterior model and semi-parametric working imputation model.
+File “sim_Biostatistics_DUMY2” contains standard errors of beta estimates without accounting for variabilities in the mover-stayer model, imputed coverage status calculated from the posterior model and semi-parametric working imputation model.
 
-File “sim_Biostatistics_DUMY3” contains estimates of the parameters in the mover-stayer model, where
-parameters.1.1 = π0 
-parameters.1.2 = π1 
-diag.parameters.1.2 = P1
-diag.parameters.2.1 = P00
-diag.parameters.2.2 = P11
+File “sim_Biostatistics_DUMY3” contains the estimates of the parameters in the mover-stayer model, where
+parameters.3 = π0 
+parameters.4 = π1 
+parameters.1.2 = P1
+parameters.2.1 = P00
+parameters.2.2 = P11
 mean.p.agree = τ1
 mean.p.agree3 = τ2. 
 
-
+File “sim_Biostatistics_DUMY5_boot” contains the bootstrap standard errors of the beta estimates in Cox regression.
 
