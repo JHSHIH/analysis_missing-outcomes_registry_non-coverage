@@ -69,7 +69,11 @@ t00 <- proc.time()
         gc()
 print(proc.time()-t00)
       }
-      if (op$boot.summary) tmp <- try(getBootSE_file(out.files[1], out.files.boot[1], parms, out.files.boot[5]))
+#       if (op$boot.summary) tmp <- try(getBootSE_file(out.files[1], out.files.boot[1], parms, out.files.boot[5]))
+       if (op$boot.summary) {tmp <- try(getBootSE_file(out.files[1], out.files.boot[1], parms, out.files.boot[5]))
+              tmp <- try(getBootSE_file2(out.files[3], out.files.boot[3], parms, out.files.boot[4]))
+  }
+
     }
 
     print(proc.time()-t0)
@@ -93,33 +97,35 @@ initOutputFiles <- function(out.files, parms) {
   out.est <- c(idcol, "ims", "NA.1", 
                betacols, 
                "me.sd.ime1", "me.coef.ime2", 
-               paste0("beta.full1", zvec), paste0("beta.hat1", zvec), 
-               paste0("beta.hat.hybrid", zvec), paste0("beta.hat.usrt", zvec),
-               paste0("beta.hat.V1", zvec), "NA.2", "NA.3", 
-               paste0("beta.hat.impute1", zvec), "NA.4", "NA.5", 
-               paste0("beta.hat.impute2", zvec), "NA.6", "NA.7")
+               paste0("beta.GS", zvec), paste0("beta.IR", zvec), 
+               paste0("beta.Hybrid", zvec), paste0("beta.SR", zvec),
+               paste0("beta.Step_1", zvec), "NA.2", "NA.3", 
+               paste0("beta.NP", zvec), "NA.4", "NA.5", 
+               paste0("beta.Proposed", zvec), "NA.6", "NA.7")
   write(out.est, file=out.files[1], sep="\t", ncol=length(out.est), append=T)
 
   out.se <- c(idcol, "ims", "NA.1",
               betacols,
               "me.sd.ime1", "me.coef.ime2", 
-              paste0("se.beta.full1", zvec), paste0("se.beta.hat1", zvec),
-              paste0("se.beta.hat.hybrid", zvec), paste0("se.beta.hat.usrt", zvec),
-              paste0("se.beta.hat.V1", zvec), "NA.2", "NA.3", 
-              paste0("se.beta.hat.impute1", zvec), "NA.4", "NA.5", 
-              paste0("se.beta.hat.impute2", zvec), "NA.6", "NA.7",
-              paste0("covp.full1", zvec), paste0("covp.hat1", zvec), 
-              paste0("covp.hybrid", zvec), paste0("covp.usrt", zvec), 
-              paste0("covp.V1", zvec), paste0("covp.impute1", zvec), 
-              paste0("covp.impute2", zvec))
+              paste0("se.beta.GS", zvec), paste0("se.beta.IR", zvec),
+              paste0("se.beta.Hybrid", zvec), paste0("se.beta.SR", zvec),
+              paste0("se.beta.Step_1", zvec), "NA.2", "NA.3", 
+              paste0("se.beta.NP", zvec), "NA.4", "NA.5", 
+              paste0("se.beta.Proposed", zvec), "NA.6", "NA.7",
+              paste0("covp.GS", zvec), paste0("covp.IR", zvec), 
+              paste0("covp.Hybrid", zvec), paste0("covp.SR", zvec), 
+              paste0("covp.Step_1", zvec), paste0("covp.NP", zvec), 
+              paste0("covp.Proposed", zvec))
   write(out.se, file=out.files[2], sep="\t", ncol=length(out.se), append=T)
 
+  #out.par <- c(idcol, "ims", "me.sd.ime1",
+  #             "me.coef.ime2", "tmp1", "tmp2",
+  #             "tmp3",
+  #             "tau1", "tmp4", "tau2", 
+  #             "pi0", "pi1", "p0","p1","p00","p11")
   out.par <- c(idcol, "ims", "me.sd.ime1",
-               "me.coef.ime2", "mean.covs.dat.delta.true.eq.0", "mean.covs.dat.obs.delta.true.eq.0",
-               "mean.covs.dat.obs.delta.obs.eq.0.na.rm.eq.T",
-               "mean.p.agree", "mean.p.agree2", "mean.p.agree3", 
-               "parameters.3", "parameters.4", 
-               paste0("parameters.1", zvec), paste0("diag.parameters.2", zvec))
+                "me.coef.ime2",  "tau1",  "tau2", 
+               "pi0", "pi1", "p0","p1","p00","p11")
   write(out.par, file=out.files[3], sep="\t", ncol=length(out.par), append=T)
 
   NULL
@@ -643,9 +649,21 @@ runSim_main <- function(data_obj, out.files, parms, boot.rows=NULL, out.id=1) {
 
         } #im=1:M
     
-        
-        out.par<-c(out.id2,ims,me.sd[ime1],me.coef[ime2],mean(covs.dat$delta.true==0),mean(covs.dat.obs$delta.true==0),mean(covs.dat.obs$delta.obs==0,na.rm=T),
-                  mean(p.agree),mean(p.agree2),mean(p.agree3),parameters[[3]],parameters[[4]],parameters[[1]],diag(parameters[[2]]))
+  #      tmp1<-mean(covs.dat$delta.true==0)
+  #      tmp2<-mean(covs.dat.obs$delta.true==0)
+  #      tmp3<-mean(covs.dat.obs$delta.obs==0,na.rm=T)
+  #      tau1<-mean(p.agree)
+  #      tau2<-mean(p.agree3)
+  #      tmp4<-mean(p.agree2)
+  #      pi0<-parameters[[3]]
+  #      pi1<-parameters[[4]]
+  #      p1<-parameters[[1]][2]
+  #      p00<-diag(parameters[[2]])[1]
+  #      p11<-diag(parameters[[2]])[2]
+ #       out.par<-c(out.id2,ims,me.sd[ime1],me.coef[ime2],tmp1,tmp2,tmp3,tau1,tmp4,tau2,pi0,pi1,p1,p00,p11)
+  #     out.par<-c(out.id2,ims,me.sd[ime1],me.coef[ime2],mean(covs.dat$delta.true==0),mean(covs.dat.obs$delta.true==0),mean(covs.dat.obs$delta.obs==0,na.rm=T),
+  #                mean(p.agree),mean(p.agree2),mean(p.agree3),parameters[[3]],parameters[[4]],parameters[[1]],diag(parameters[[2]]))
+        out.par<-c(out.id2,ims,me.sd[ime1],me.coef[ime2], mean(p.agree),mean(p.agree3),parameters[[3]],parameters[[4]],parameters[[1]],diag(parameters[[2]]))
         write(out.par,file=out.files[3],sep="\t",ncol=length(out.par),append=T)
 
         ################################################################################
@@ -727,8 +745,8 @@ getBootSE_file <- function(obsFile, bootFiles, parms, outFile, perc=c(0.025, 0.9
 
   # Column names for the betahats
   nc.beta  <- ncol(parms$beta)
-  tmp      <- c("beta.full1", "beta.hat1", "beta.hat.hybrid", "beta.hat.usrt", 
-                "beta.hat.V1", "beta.hat.impute1", "beta.hat.impute2")
+  tmp      <- c("beta.GS", "beta.IR", "beta.Hybrid", "beta.SR", 
+                "beta.Step_1", "beta.NP", "beta.Proposed")
   betavars <- paste(rep(tmp, each=nc.beta), rep(1:nc.beta, times=length(tmp)), sep=".") 
   ib       <- parms$ib
   BETA     <- parms$beta[ib, , drop=TRUE]
@@ -815,6 +833,106 @@ getBootSE_file <- function(obsFile, bootFiles, parms, outFile, perc=c(0.025, 0.9
 
       # Perentile method of coverage probs
       ret[i, covpcols2[ab]] <- getCoverageProb_perc(BETA, x2[, bvars, drop=FALSE], perc=perc)
+    }
+  }
+
+  if (length(outFile)) write.table(ret, file=outFile, sep="\t", quote=FALSE, row.names=FALSE, col.names=TRUE)
+  ret
+}
+
+getBootSE_file2 <- function(obsFile, bootFiles, parms, outFile, perc=c(0.025, 0.975)) {
+
+  # Column names for the parameters in the mover-stayer model
+  tmp <-c("tau1","tau2","pi0","pi1","p1","p00","p11")
+  betavars <- tmp
+  # nc.beta  <- ncol(parms$beta)
+  nc.beta<-length(betavars)
+ # ib       <- parms$ib
+ # BETA     <- parms$beta[ib, , drop=TRUE]
+  nbootf   <- length(bootFiles)
+  
+  # Read in the file containing the betahats
+  x0  <- read.table(obsFile, header=1, sep="\t", stringsAsFactors=FALSE)
+  x0  <- unique(x0)
+  if (!any(grepl("boot0", x0[, 1], fixed=TRUE))) stop("ERROR with obsFile")
+  if (!all(betavars %in% colnames(x0))) stop("ERROR with obsFile")
+  x0[, 1]      <- gsub("_boot0", "", x0[, 1, drop=TRUE], fixed=TRUE)
+  ids          <- x0[, 1, drop=TRUE]
+  if (any(duplicated(ids))) stop("ERROR with obsFile")
+  rownames(x0) <- ids
+
+  # Read in the file containing the bootstrap results
+  x <- NULL
+  for (i in 1:nbootf) {
+    y  <- read.table(bootFiles[i], header=1, sep="\t", stringsAsFactors=FALSE)
+    if (!nrow(y)) next
+    if (any(grepl("boot0", y[, 1], fixed=TRUE))) stop("ERROR with bootFile")
+    tmp <- colnames(y)
+    if (!all(betavars %in% tmp)) stop("ERROR with bootFile")
+    if (i < 2) {
+      x <- y
+    } else {
+      x <- rbind(x, y)
+    }
+  }
+  if (!length(x)) stop("ERROR: no bootstraps")
+  y <- NULL
+  gc()
+  cx <- colnames(x)
+
+  for (v in betavars) {
+    x0[, v] <- as.numeric(x0[, v, drop=TRUE])
+    x[, v]  <- as.numeric(x[, v, drop=TRUE])  
+  }
+  nrx   <- nrow(x)
+  nbeta <- length(betavars)/nc.beta
+  nids  <- length(ids)
+
+  # Get bootstrap standard errors for each replication, remove "boot1", "boot2", ... etc
+  tmp    <- matrix(unlist(strsplit(x[, 1, drop=TRUE], "_", fixed=TRUE)), nrow=nrx, ncol=6, byrow=TRUE)
+  idboot <- myPasteCols(tmp[, -2, drop=FALSE], sep="_") 
+
+  # Initialize matrix for results
+  col1          <- gsub("_boot", "", cx[1], fixed=TRUE)
+  secols        <- paste0("boot.se.", betavars)
+  #covpcols      <- paste0("covp.", betavars) 
+  #covpcols2     <- paste0("covpPerc.", betavars) # Percentile method 
+  nonmisscols   <- paste0("nboot.", betavars) # number of non-missing
+  nacols        <- paste0("NA.", 1:99)
+  cols2         <- cx[!(cx %in% c(betavars, nacols, cx[1]))]
+  #tmp           <- c(col1, cols2, secols, covpcols, covpcols2, nonmisscols)
+  tmp           <- c(col1, cols2, secols, nonmisscols)
+  ret           <- matrix(data=NA, nrow=nids, ncol=length(tmp)) 
+  colnames(ret) <- tmp
+  ret[, 1]      <- ids
+  ret[, cols2]  <- as.matrix(x0[, cols2]) 
+
+  for (i in 1:nids) {
+    id  <- ids[i]
+    tmp <- idboot %in% id
+    if (!any(tmp)) next
+
+    x2  <- x[tmp, , drop=FALSE]
+    b   <- 0
+    for (j in 1:nbeta) {
+      a                    <- b + 1
+      b                    <- a + nc.beta - 1
+      ab                   <- a:b
+      bvars                <- betavars[ab]
+      betahat              <- unlist(x0[id, bvars]) 
+      bootse               <- rep(NA, nc.beta)
+      nonmiss              <- bootse
+      for (k in 1:nc.beta) {
+        vec        <- x2[, bvars[k], drop=TRUE]
+        bootse[k]  <- sd(vec, na.rm=TRUE) 
+        nonmiss[k] <- sum(is.finite(vec))
+      }
+      ret[i, secols[ab]]      <- bootse 
+      #ret[i, covpcols[ab]]    <- getCoverageProb(BETA, betahat, bootse, z=1.96)
+      ret[i, nonmisscols[ab]] <- nonmiss
+
+      # Perentile method of coverage probs
+      #ret[i, covpcols2[ab]] <- getCoverageProb_perc(BETA, x2[, bvars, drop=FALSE], perc=perc)
     }
   }
 
@@ -1624,7 +1742,7 @@ combineSimFiles2 <- function(dirs, out.str, nRepPerFile=1) {
   dirs <- paste0(dirs, "/", sep="")
 
   ndirs <- length(dirs)
-  strs  <- c("DUMY1", "DUMY2", "DUMY3", "DUMY5_boot")
+  strs  <- c("DUMY1", "DUMY2", "DUMY3", "DUMY4_boot","DUMY5_boot")
   nstrs <- length(strs)
   nrep1 <- nRepPerFile + 1
 
