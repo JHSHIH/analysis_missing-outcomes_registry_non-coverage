@@ -1,8 +1,4 @@
 # Required source files
-#sf1 <- "/data/wheelerwi/PaulAlbert/JoannaShih/source/2021-08-26/source.R"
-#sf2 <- "/data/wheelerwi/PaulAlbert/JoannaShih/source/2021-07-08/Decode_state_05172021.R"
-#sf3 <- "/data/wheelerwi/PaulAlbert/JoannaShih/source/2021-07-08/USRT_VPR_funcs_06152021.R"
-#sf4 <- "/data/wheelerwi/PaulAlbert/JoannaShih/source/2021-07-08/source.so"
 sf1 <- "/home/jshih/registry/simu/source/source.R"
 sf2 <- "/home/jshih/registry/simu/source/Decode_state_05172021.R"
 sf3 <- "/home/jshih/registry/simu/source/USRT_VPR_funcs_06152021_Joanna.R"
@@ -20,9 +16,9 @@ odir0  <- "/home/jshih/registry/simu/source/out3/"
 #STR           <- "sim54_ib2"
 STR           <- "sim_Biostatistics"
 NREP          <- 1
-NBOOT         <- 500
+NBOOT         <- 200
 NREPPERJOB    <- 1
-NBOOTPERJOB   <- 500
+NBOOTPERJOB   <- 200
 
 
 sourceFiles   <- c(sf1, sf2, sf3, sf4)
@@ -35,10 +31,10 @@ seeds.boot <- sample(1:999999999, NBOOT, replace=FALSE)
 # simulation parameters
 # All parameters have default values. The default values can be seen by calling check_parms(NULL).
 # par1 and par2 are used in:
-# impute.method.1.cmpr2(par1,…) 
-# impute.method.V.cmpr2(par1,…)
-# sample.coxph2.cmpr2(par2,…)
-# sample.coxph.V2.cmpr2(par2,…) 
+# impute.method.1.cmpr2(par1,â€¦) 
+# impute.method.V.cmpr2(par1,â€¦)
+# sample.coxph2.cmpr2(par2,â€¦)
+# sample.coxph.V2.cmpr2(par2,â€¦) 
 
 #Moving-stayer model parameters
 ms.pars      <- list()
