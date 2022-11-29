@@ -1,19 +1,16 @@
 # Required source files
 sf1 <- "/home/jshih/registry/simu/source/source.R"
-sf2 <- "/home/jshih/registry/simu/source/Decode_state_05172021.R"
-sf3 <- "/home/jshih/registry/simu/source/USRT_VPR_funcs_06152021_Joanna.R"
+sf2 <- "/home/jshih/registry/simu/source/Decode_state.R"
+sf3 <- "/home/jshih/registry/simu/source/USRT_VPR_funcs.R"
 sf4<- "/home/jshih/registry/simu/source/source.so"
 
 source(sf1) # Needed for calling runSims_genSwarmFiles below
 
 # Folder where the job files will be written to
-#cdir0  <- "/data/wheelerwi/PaulAlbert/JoannaShih/source/2021-08-26/call/"
-#odir0  <- "/data/wheelerwi/PaulAlbert/JoannaShih/source/2021-08-26/out/"
 cdir0  <- "/home/jshih/registry/simu/source/call3/"
 odir0  <- "/home/jshih/registry/simu/source/out3/"
 
 
-#STR           <- "sim54_ib2"
 STR           <- "sim_Biostatistics"
 NREP          <- 1
 NBOOT         <- 200
@@ -47,22 +44,22 @@ ms.pars[[1]] <- c(0.39,0.97,0.98,0.2,0.4)
 #Unused parameters: a, a2,b, b2,me.cen,me.coef
 #beta: Cox regression coefficients of interest
 #epsilon: tolerance level for convergence 
-#lambda, lambda2: constant hazard for failure time of type 1 and 2
-#M: # of imputations for missing registry data when par.impute=T
+#lambda, lambda2: constant hazard for failure time of type 1 and 2, respectively
+#M: # of imputations for missing residence data when par.impute=T
 #M2: # of imputations for missing registry-identified failure time 
 #MAXT: 300 months (25 years) of followup
 #me.sd: level of measurement error
 #par.impute: if par.impute=F, impute missing residence status by posterior mode; if par.impute=T, impute missing residence #status from the posterior distribution (M times)
 #p_00,p_11,pi_0,pi_1,r_0: initial values of the moving stayer model parameter estimates
-#par1: arment passed to impute.1.method.cmpr2
-#       if par1=NULL, impute both failure time and failure type if self-reported failure time is censored; impute only #       failure time and failure type of imputed failure time is the same as the failure type of self-reported failure time.
+#par1: argument passed to impute.1.method.cmpr2
+#       if par1=NULL, impute both failure time and failure type if self-reported failure time is censored. Otherwise, impute only failure time and failure type of imputed failure time is the same as the failure type of self-reported failure time.
 #       if par1 !=NULL, impute both failure time and failure type.
       
 #par2: argument passed to sample.coxph2.cmpr2
 #       if par2<0, impute both failure type and failure time 
-#       if par2=NULL, impute both failure time and failure type if self-reported failure time is censored; impute only #       failuretime and failure type of imputed failure time is the same as the failure type of self-reported failure time.
+#       if par2=NULL, impute both failure time and failure type if self-reported failure time is censored. Otherwise impute only failuretime and failure type of imputed failure time is the same as the failure type of self-reported failure time.
 
-#sen, spec: sensitivity and specificity with respect to failure type (1 vs 2) of error-free failure time and error-prone #failure time
+#sen, spec: sensitivity and specificity with respect to failure type (1 vs 2) of gold standard failure time and error-prone failure time
 
 ### ### #### ### #### #### #### #### #### #### 
 
@@ -107,4 +104,4 @@ parms <- list(a          = 1,
 # dirs <-list.files(odir0,full.names=TRUE)
 # combineSimFiles2(dirs,paste0(odir0,STR),nRepPerFile=1)
 
-#To obtain final summarized files, run summary_simu.R
+
